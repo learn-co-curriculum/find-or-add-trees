@@ -107,8 +107,8 @@ So we start at the root node, and see that the number three is less than the num
  1
   \
    4
-    \
-     3
+   /
+  3
 ```
 
 At this point, we should check that we applied this example correctly.  We do so by checking our updated data structure against our definition of a Binary Search Tree.  
