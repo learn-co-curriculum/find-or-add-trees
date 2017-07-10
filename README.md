@@ -19,7 +19,7 @@ Remember that arrays work by storing each element a fixed distance from an initi
  500  508   516   524  532 540
 ```
 
-Arrays storing elements a fixed distance apart makes them very efficient at retrieving information.  This is because it is very easy to calculate where an element at a specific index lives.  The costing retrieving an element by its index is big O(1).  Or to put it another way, the cost of retrieving an element at a specific index does not depend on the length of the array.
+Arrays storing elements a fixed distance apart makes them very efficient at retrieving information.  This is because it is very easy to calculate where an element at a specific index lives.  The cost of retrieving an element by its index is big O(1).  Or to put it another way, the cost of retrieving an element at a specific index does not depend on the length of the array.
 
 More costly with arrays is shifting or unshifting an element from an array.  To add an element to the beginning means, that each subsequent element must move down one slot, which therefore take big o (n) time.
 
@@ -49,7 +49,7 @@ However, adding or removing elements to the beginning of the linked list can be 
 ```
 > To insert the node, we only had to change the second node to point to the inserted node, and have the inserted node point to the proper subsequent node.
 
-Let's strengths and weaknesses of linked lists and arrays in a chart:
+Let's see the strengths and weaknesses of linked lists and arrays in a chart:
 
 Data Structure | Adding Elements | Retrieving Elements
 | ----------  |:---------:|    -----:|
@@ -197,3 +197,5 @@ Here we went through the process of inserting a new node into a tree.  Our mecha
 In the lab that follows, we will ask you to write code that will add a node to the tree if it does not exist, but return true if node with the data already exists.  In other words, it will either find or add the node.
 
 Let's explore more in the lab that follows.
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/find-or-add-trees'>Find Or Add Trees</a> on Learn.co and start learning to code for free.</p>
