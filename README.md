@@ -158,14 +158,14 @@ function findOrAdd(rootNode, newNode){
       if(currentNode){
         findOrAdd(currentNode, newNode)
       } else {
-        currentNode.left = newNode
+        rootNode.left = newNode
       }
   } else if(newNode.data > rootNode.data) {
     currentNode = rootNode.right
     if(currentNode){
       findOrAdd(currentNode, newNode)
     } else {
-      currentNode.right = newNode
+      rootNode.right = newNode
     }
   }
 }
