@@ -1,4 +1,6 @@
 ---
-:page_id: 3428
-:course_id: 239
-:canvas_url: https://learning.flatironschool.com/courses/239/pages/find-or-add-trees
+:lessons:
+- :id: 3907
+  :course_id: 272
+  :canvas_url: https://learning.flatironschool.com/courses/272/pages/find-or-add-trees
+  :type: page
