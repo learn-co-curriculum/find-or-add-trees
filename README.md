@@ -181,10 +181,10 @@ Let's see that we followed our steps for coding that we outlined in our previous
 it looks like we still need to do number three, and see that our final code works.  
 
 ```javascript
-
+  let rootNode = {data: 6, left: {data: 1, left: null, right: {data: 4, left: null, right: null} }, right: null }
   let newNode = {data: 3, leftChild: null, rightChild: null}
   findOrAdd(rootNode, newNode)
-  newNode == rootNode.left.right.right
+  newNode == rootNode.left.right.left
   // true
 ```
 
