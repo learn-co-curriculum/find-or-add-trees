@@ -75,11 +75,11 @@ Break down the problem with...
 
 Diagram       or           Javascript
 
-   6     
-  /  
- 1             vs    {data: '4', rightChild: null, leftChild: null}
-  \
-   4
+   6                 let n6 = new TreeNode(6)
+  /                  let n1 = new TreeNode(1)
+ 1             vs    let n4 = new TreeNode(4)
+  \                  n6.left = n1
+   4                 n1.right = n4
 ```
 
 At this point, let's use the digram to solve the problem in the conceptual zone, and later we can translate to code.  Ok, so now we need to try inserting a node, see how our brain solves the problem and then translate this process into words.
@@ -126,66 +126,76 @@ The first part of translating into code is to summarize our process in words.  H
 So now, let's try to translate this into code.
 
 ```javascript
-function findOrAdd(rootNode, newNode){
-  let currentNode = rootNode.data
-  if(newNode.data < rootNode.data){
-      currentNode = rootNode.left
-      if(currentNode){
-        // do something
-      } else {
-        currentNode.left = newNode
-      }
-  } else if(newNode.data > rootNode.data) {
-    currentNode = rootNode.right
-    if(currentNode){
-      // do something
+class TreeNode {
+  constructor(data) {
+    this.data = data
+    this.left = null
+    this.right = null
+  }
+}
+
+class Tree {
+  constructor() {
+    this.root = null
+  }
+
+  // the "public" add method.
+  // this method calls the _add() helper method and passes it .root
+  // users call this method with just .add(value) and don't have
+  // to bother passing the reference to root in to start the search off.
+  add(value) {
+    if (this.root === null) {
+      this.root = new TreeNode(value)
     } else {
-      currentNode.right = newNode
+      this._add(this.root, value)
+    }
+  }
+
+  // a recursive helper method with two paremeters.
+  // consider this method "private." people should call .add(value) externally.
+  // node: the current node we're visiting
+  // value: the value to add to the tree
+  _add(node, value) {
+    // check to see if there's an open spot on the left or right
+    if (node.left === null && value < node.value) {
+      node.left = new TreeNode(value)
+    } else if (node.right === null && value > node.value) {
+      node.right = new TreeNode(value)
+    } else if (value < node.value) {
+      // traverse left continuing to look for an open spot
+      this._add(node.left, value)
+    } else if (value > node.value) {
+      // traverse right continuing to look for an open spot
+      this._add(node.right, value)
     }
   }
 }
 ```
-Does this work so far?  Try it with a couple numbers and make sure.  
 
-So now the only question is, what if there is a currentNode, what do we have to do then?  Well, we have to go through the process again.  In other words, our code should really look like the following:
-
-```javascript
-
-function findOrAdd(rootNode, newNode){
-  let currentNode = rootNode
-  if(newNode.data < rootNode.data){
-      currentNode = rootNode.left
-      if(currentNode){
-        findOrAdd(currentNode, newNode)
-      } else {
-        rootNode.left = newNode
-      }
-  } else if(newNode.data > rootNode.data) {
-    currentNode = rootNode.right
-    if(currentNode){
-      findOrAdd(currentNode, newNode)
-    } else {
-      rootNode.right = newNode
-    }
-  }
-}
-
-```
-
-So yes, our solution is recursive.  The recursive case is to compare the `newNode` against the `currentNode` and move to the right or left accordingly.  The base case is when after moving to the right or left, we do not find a node.  At that point, we assign the newNode to its proper position and stop.  
-
-Let's see that we followed our steps for coding that we outlined in our previous section:
+Our solution is recursive.  The recursive case is to compare the `value` against the `node.value` and move to the right or left accordingly.  The base case is when after moving to the right or left, we find an empty spot to place a node.  At that point, we create a new node and place it in its proper position and stop.
 
 **3. Check that the code works**
 
-it looks like we still need to do number three, and see that our final code works.  
+Let's create nodes and an empty tree and initially wire them together manually. Then, we'll call `tree.add(3)` and check to make sure it's added in it's proper position.
 
 ```javascript
+// manually construct and wire the nodes together
+let n6 = new TreeNode(6)
+let n1 = new TreeNode(1)
+let n4 = new TreeNode(4)
+n6.left = n1
+n1.right = n4
 
-  let newNode = {data: 3, leftChild: null, rightChild: null}
-  findOrAdd(rootNode, newNode)
-  newNode == rootNode.left.right.right
-  // true
+// create a new empty tree, then attach n6 as the root.
+let tree = new Tree()
+tree.root = n6
+
+// call the add method to watch it work!
+tree.add(3)
+
+// check the .data of the node at the position we expect it to be in.
+rootNode.left.right.right.data === 3
+// true
 ```
 
 Ok, everything works.  
